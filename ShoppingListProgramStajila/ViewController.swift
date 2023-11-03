@@ -84,7 +84,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     @IBAction func sort(_ sender: Any) {
-        sortButton.backgroundColor = UIColor.green
+        sortButton.backgroundColor = UIColor.blue
         items.sort(by: <)
         defaults.set(items, forKey: "items")
         mainTableView.reloadData()
