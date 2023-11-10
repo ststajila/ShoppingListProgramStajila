@@ -17,6 +17,8 @@
 		14D9F39C2AF296D900E21776 /* ShoppingListProgramStajilaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D9F39B2AF296D900E21776 /* ShoppingListProgramStajilaTests.swift */; };
 		14D9F3A62AF296D900E21776 /* ShoppingListProgramStajilaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D9F3A52AF296D900E21776 /* ShoppingListProgramStajilaUITests.swift */; };
 		14D9F3A82AF296D900E21776 /* ShoppingListProgramStajilaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D9F3A72AF296D900E21776 /* ShoppingListProgramStajilaUITestsLaunchTests.swift */; };
+		85F1A13B2AFC5FD700FC5D05 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F1A13A2AFC5FD700FC5D05 /* CustomCell.swift */; };
+		85F1A13D2AFC63DB00FC5D05 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F1A13C2AFC63DB00FC5D05 /* Items.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		14D9F3A12AF296D900E21776 /* ShoppingListProgramStajilaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShoppingListProgramStajilaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D9F3A52AF296D900E21776 /* ShoppingListProgramStajilaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListProgramStajilaUITests.swift; sourceTree = "<group>"; };
 		14D9F3A72AF296D900E21776 /* ShoppingListProgramStajilaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListProgramStajilaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		85F1A13A2AFC5FD700FC5D05 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		85F1A13C2AFC63DB00FC5D05 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,8 @@
 				14D9F3812AF296D700E21776 /* AppDelegate.swift */,
 				14D9F3832AF296D700E21776 /* SceneDelegate.swift */,
 				14D9F3852AF296D700E21776 /* ViewController.swift */,
+				85F1A13A2AFC5FD700FC5D05 /* CustomCell.swift */,
+				85F1A13C2AFC63DB00FC5D05 /* Items.swift */,
 				14D9F3872AF296D700E21776 /* Main.storyboard */,
 				14D9F38D2AF296D900E21776 /* Assets.xcassets */,
 				14D9F38F2AF296D900E21776 /* LaunchScreen.storyboard */,
@@ -263,7 +269,9 @@
 			files = (
 				14D9F3862AF296D700E21776 /* ViewController.swift in Sources */,
 				14D9F3822AF296D700E21776 /* AppDelegate.swift in Sources */,
+				85F1A13B2AFC5FD700FC5D05 /* CustomCell.swift in Sources */,
 				14D9F3842AF296D700E21776 /* SceneDelegate.swift in Sources */,
+				85F1A13D2AFC63DB00FC5D05 /* Items.swift in Sources */,
 				14D9F38C2AF296D700E21776 /* ShoppingListProgramStajila.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

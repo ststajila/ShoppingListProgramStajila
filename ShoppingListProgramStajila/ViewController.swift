@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var mainTableView: UITableView!
     
     var defaults = UserDefaults.standard
-    var items: [String] = ["Milk", "Bread", "Eggs"]
+    var items: [Items] = [Items(name: "Milk", checkStatus: false),Items(name: "Bread", checkStatus: false), Items(name: "Eggs", checkStatus: false)]
     var alert = UIAlertController(title: "Error", message: "the item is already in your shoping list!", preferredStyle: .alert)
     var input = UIAlertController(title: "Invalid Input", message: "To add an item you must type its name", preferredStyle: .alert)
     
@@ -22,9 +22,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if defaults.array(forKey: "items") != nil {
-            items = defaults.array(forKey: "items") as! [String]
+        
+        if defaults.array(forKey: "items") != nil{
+            let encoder = JSONEncoder()
+              if let encoded = try? encoder.encode(items) {
+                               defaults.set(encoded, forKey: "items")
+                           }
         }
+        
+        if let itemsArray = defaults.data(forKey: "items") {
+                        let decoder = JSONDecoder()
+                        if let decoded = try? decoder.decode([Items].self, from: itemsArray) {
+                            items = decoded
+                        }
+                }
+        
         mainTableView.delegate = self
         mainTableView.dataSource = self
         let okAction = UIAlertAction(title: "ok", style: .default)
@@ -39,19 +51,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = mainTableView.dequeueReusableCell(withIdentifier: "itemsCell")
-        cell!.textLabel?.text = items[indexPath.row]
-        return cell!
+        let cell = mainTableView.dequeueReusableCell(withIdentifier: "customCell") as! CustomCell
+        cell.nameOutlet.text = items[indexPath.row].name
+        if items[indexPath.row].checkStatus{
+            cell.accessoryType = UITableViewCell.AccessoryType.checkmark
+        }
+        return cell
     }
     
     @IBAction func add(_ sender: Any) {
         
         if itemOutlet.text != "" {
             if isInArray(array: items, item: itemOutlet.text!) == false{
-                items.append(itemOutlet.text!)
-                mainTableView.reloadData()
+                items.append(Items(name: itemOutlet.text!, checkStatus: false))
+                
+             mainTableView.reloadData()
+                
+                
                 itemOutlet.text = ""
-                defaults.set(items, forKey: "items")
+            
+                let encoder = JSONEncoder()
+                  if let encoded = try? encoder.encode(items) {
+                                   UserDefaults.standard.set(encoded, forKey: "items")
+                               }
+                
                 sortButton.backgroundColor = UIColor.lightGray
             }
             else{
@@ -68,14 +91,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if editingStyle == .delete{
             items.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            defaults.set(items, forKey: "items")
+           
+            let encoder = JSONEncoder()
+              if let encoded = try? encoder.encode(items) {
+                               defaults.set(encoded, forKey: "items")
+                           }
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if items[indexPath.row].checkStatus == false{
+            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.checkmark
+            items[indexPath.row].checkStatus = true
+            
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(items) {
+                defaults.set(encoded, forKey: "items")
+            }
+        } else{
+            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.none
+            
+            items[indexPath.row].checkStatus = false
+           
+            let encoder = JSONEncoder()
+              if let encoded = try? encoder.encode(items) {
+                               defaults.set(encoded, forKey: "items")
+                           }
+        }
+        
+    }
+    
 
-    func isInArray(array: [String], item: String) -> Bool{
+    func isInArray(array: [Items], item: String) -> Bool{
         for i in array{
-            if i.lowercased() == item.lowercased(){
+            if i.name.lowercased() == item.lowercased(){
                 return true
             }
         }
@@ -85,9 +135,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBAction func sort(_ sender: Any) {
         sortButton.backgroundColor = UIColor.blue
-        items.sort(by: <)
-        defaults.set(items, forKey: "items")
+        items.sort(by: { $0.name < $1.name } )
+        
+        let encoder = JSONEncoder()
+          if let encoded = try? encoder.encode(items) {
+                           defaults.set(encoded, forKey: "items")
+                       }
+        
         mainTableView.reloadData()
+
     }
     
 }
