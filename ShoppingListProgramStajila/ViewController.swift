@@ -55,6 +55,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.nameOutlet.text = items[indexPath.row].name
         if items[indexPath.row].checkStatus{
             cell.accessoryType = UITableViewCell.AccessoryType.checkmark
+        } else{
+            cell.accessoryType = UITableViewCell.AccessoryType.none
         }
         return cell
     }
